@@ -13,7 +13,7 @@ export default function Login() {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'https://admirable-creponne-011375.netlify.app/api/client/sign-up',
+            url: 'https://wly-next.vercel.app/api/client/sign-up',
             headers: {
                 'Content-Type': 'application/json'
             },
