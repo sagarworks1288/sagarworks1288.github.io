@@ -13,7 +13,7 @@ export default function Login() {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'https://wly-next.vercel.app/api/client/sign-up',
+            url: 'https://wly-next-96g34gq4m-sagarworks1288.vercel.app/api/client/sign-up',
             headers: {
                 'Content-Type': 'application/json'
             },
