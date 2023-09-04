@@ -13,12 +13,18 @@ const FadeInDiv = styled.div`
   animation: 1s ${fadeInAnimation};
 `;
 
+const fadeOutCss = {}
 
 export default function Home() {
   
-  const [list,setList] = useState([1,2,3,4,5,6])
+  const [list,setList] = useState(['https://i.imgur.com/Kq0gtJI.jpeg','https://i.imgur.com/X8KjgCy.png',"https://i.imgur.com/grf4EtC.jpeg",
+"https://i.imgur.com/8PFL8KX.jpeg"
+,"https://i.imgur.com/MAlrlGl_d.webp?maxwidth=520&shape=thumb&fidelity=high"])
+  const [btnDisable, setBtnDisable] = useState(false)
   
   const hasMounted = useRef(false);
+  
+  const currentDiv = useRef(false);
   
   async function statx(){
     const x = await homeApi();
@@ -44,12 +50,21 @@ export default function Home() {
         <p>This content will fade in.</p>
         {/* <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" /> */}
       </FadeInDiv>
-      
-      <div>
-        {_.map(list,(r,ix)=><>{ix===0 ? <FadeInDiv>{r}</FadeInDiv> : <div>{r}</div> }</>)}
+      {/*...(ix===0 ? { ref:currentDiv } : {})*/}
+      <div style={{minHeight:100}}>
+        {_.map(list,(r,ix)=><div className="crdx" id={'dvx_'+ix}   style={ix===(list.length-1)?{background:'white'}:{background:'white'}} >{ix} <img src={r}style={{height:100}}  /> </div>)}
       </div>
       
-      <button onClick={()=>setList(_.filter(list,(nx,i)=>i!==0))} >hide</button>
+      <button disabled={btnDisable} onClick={()=>{
+        setBtnDisable(true)
+        document.getElementById("dvx_"+(list.length-1)).classList.add("fadeOut")
+        setTimeout(()=>{
+          setList(_.filter(list,(nx,i)=>i!==(list.length-1)))
+          document.getElementById("dvx_"+(list.length-1)).classList.remove("fadeOut")
+          setBtnDisable(false)
+        },1100)
+      //  
+      }} >hide</button>
     </div>
     </Layout>);
 }
