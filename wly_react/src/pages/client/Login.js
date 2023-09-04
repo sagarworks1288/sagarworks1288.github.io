@@ -4,6 +4,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import _ from "lodash";
 import axios from "axios";
 import { googleAuthId, baseUrl } from "../../utils/config";
+import {Link} from "react-router-dom";
 
 export default function Login() {
   const auth = (token) => {
@@ -32,6 +33,7 @@ export default function Login() {
           }}
         />
       </GoogleOAuthProvider>
+      <Link to="/home" >HOME</Link>
     </>
   );
 }
