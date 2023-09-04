@@ -1,8 +1,9 @@
+import React from "react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GoogleLogin } from "@react-oauth/google";
-import _ from "lodash"
-import axios from "axios"
-import { googleAuthId, baseUrl } from '../utils/config'
+import _ from "lodash";
+import axios from "axios";
+import { googleAuthId } from "../../utils/config";
 
 
 export default function Login() {
@@ -11,11 +12,11 @@ export default function Login() {
         let data = JSON.stringify({ token });
 
         let config = {
-            method: 'post',
+            method: "post",
             maxBodyLength: Infinity,
-            url: 'https://wly-next-96g34gq4m-sagarworks1288.vercel.app/api/client/sign-up',
+            url: "https://wly-next-96g34gq4m-sagarworks1288.vercel.app/api/client/sign-up",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             },
             data: data
         };
@@ -23,14 +24,14 @@ export default function Login() {
         axios.request(config)
             .then((response) => {
                 console.log(JSON.stringify(response.data));
-                alert(JSON.stringify(response.data))
+                alert(JSON.stringify(response.data));
             })
             .catch((error) => {
                 console.log(error);
             });
 
 
-    }
+    };
 
 
     return (<>
@@ -38,12 +39,12 @@ export default function Login() {
             <GoogleLogin
                 onSuccess={(credentialResponse) => {
                     console.log(credentialResponse);
-                    auth(_.get(credentialResponse, 'credential', null))
+                    auth(_.get(credentialResponse, "credential", null));
                 }}
                 onError={() => {
                     console.log("Login Failed");
                 }}
             />
         </GoogleOAuthProvider>
-    </>)
+    </>);
 }
