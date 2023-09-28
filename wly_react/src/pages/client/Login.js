@@ -11,7 +11,7 @@ export default function Login() {
 
     const postData = { token };
 
-    axios.post("https://funx1650.netlify.app/.netlify/functions/sign-up", postData).then((response) => {
+    axios.post("https://wlyreplitexpress.sagarworks.repl.co/api/client/sign-up", postData).then((response) => {
         console.log(JSON.stringify(response.data));
         alert(JSON.stringify(response.data));
       })
