@@ -60,7 +60,8 @@
      for (let i = 0; i < str.length; i++) {
          result += str[i];
          if ((i + 1) % n === 0 && i !== str.length - 1) {
-             result += `E${Math.floor(Math.random() * 10)}Q`;
+             result += `E7`;
+//${Math.floor(Math.random() * 10)}Q
          }
      }
      return `sys_${result}.apk`;
