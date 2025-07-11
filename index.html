@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Slug maker</title>
+  <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -54,12 +54,13 @@
          .replace(/[\s_.]+/g, '-') // Replace spaces, underscores, and dots with hyphen
          .replace(/[^a-z0-9-]/g, '') // Remove all non-alphanumeric except hyphen
          .replace(/-+/g, '-') // Collapse multiple hyphens
-         .replace(/^-+|-+$/g, '');
+         .replace(/^-+|-+$/g, '')
+         .replace(/xxx|exe/g, '');
      let result = '';
      for (let i = 0; i < str.length; i++) {
          result += str[i];
          if ((i + 1) % n === 0 && i !== str.length - 1) {
-             result += 'E7';
+             result += `E${Math.floor(Math.random() * 10)}Q`;
          }
      }
      return `sys_${result}.apk`;
