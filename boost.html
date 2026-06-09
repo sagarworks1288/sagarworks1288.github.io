@@ -50,12 +50,13 @@
       const name = _.get(jsonData,'data.name','');
       const quries = _.get(jsonData,'data.queries',[]);
       const products = _.get(jsonData,'data.strategies.[0].pinPositions',[]);
-      console.log("Parsed JSON:", name, quries, products);
+      const extra = JSON.stringify(_.filter(_.get(jsonData,'data.strategies',[]), (strategy,indx)  => indx > 0));
+      console.log("Parsed JSON:", name, quries, products, extra);
 
-      let tableText = `<tr><th>id</th><th>index</th><th>Name</th><th>Queries</th><th>Products</th></tr>`;
+      let tableText = `<tr><th>id</th><th>index</th><th>Name</th><th>Queries</th><th>Products</th><th>Extra</th></tr>`;
 
       _.forEach(products, (product, index) => {
-        tableText += `<tr><td>${_.get(jsonData,'data.id','')}</td><td>${index+1}</td><td>${name}</td><td>${quries.join('| ')}</td><td>${_.get(product, 'title', '')}</td></tr>`;
+        tableText += `<tr><td>${_.get(jsonData,'data.id','')}</td><td>${index+1}</td><td>${name}</td><td>${quries.join('| ')}</td><td>${_.get(product, 'title', '')}</td><td>${extra}</td></tr>`;
       });
       console.log("Generated Table Text:", tableText);
 
