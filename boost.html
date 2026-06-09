@@ -52,10 +52,10 @@
       const products = _.get(jsonData,'data.strategies.[0].pinPositions',[]);
       console.log("Parsed JSON:", name, quries, products);
 
-      let tableText = `<tr><th>id</th><th>Name</th><th>Queries</th><th>Products</th></tr>`;
+      let tableText = `<tr><th>id</th><th>index</th><th>Name</th><th>Queries</th><th>Products</th></tr>`;
 
-      _.forEach(products, (product) => {
-        tableText += `<tr><td>${_.get(jsonData,'data.id','')}</td><td>${name}</td><td>${quries.join('| ')}</td><td>${_.get(product, 'title', '')}</td></tr>`;
+      _.forEach(products, (product, index) => {
+        tableText += `<tr><td>${_.get(jsonData,'data.id','')}</td><td>${index+1}</td><td>${name}</td><td>${quries.join('| ')}</td><td>${_.get(product, 'title', '')}</td></tr>`;
       });
       console.log("Generated Table Text:", tableText);
 
