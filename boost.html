@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>BOOST</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+
+  <div class="container-fluid p-5 bg-primary text-white text-center">
+    <h1>Boost</h1>
+   
+  </div>
+
+  
+  <div class="container">
+
+  <form onsubmit="handleSubmit(event)"  >
+    <div class="form-group">
+        <label>JSON</label>
+        <textarea class="form-control" id="jsonData" required="true" ></textarea>
+    </div>
+    <div class="form-group">
+       <br/>
+       <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+
+  </div>
+
+  <div id="tableArea"  class="container"></div>
+
+<script>
+  function handleSubmit(event) {
+    event.preventDefault(); // stop page reload
+
+    const jsonText = document.getElementById("jsonData").value;
+
+
+    try {
+      const jsonData = JSON.parse(jsonText);
+
+
+      const name = _.get(jsonData,'data.name','');
+      const quries = _.get(jsonData,'data.queries',[]);
+      const products = _.get(jsonData,'data.strategies.[0].pinPositions',[]);
+      console.log("Parsed JSON:", name, quries, products);
+
+      let tableText = `<tr><th>id</th><th>Name</th><th>Queries</th><th>Products</th></tr>`;
+
+      _.forEach(products, (product) => {
+        tableText += `<tr><td>${_.get(jsonData,'data.id','')}</td><td>${name}</td><td>${quries.join('| ')}</td><td>${_.get(product, 'title', '')}</td></tr>`;
+      });
+      console.log("Generated Table Text:", tableText);
+
+    const tableHtml = `<table class="table table-bordered">${tableText}</table>`;
+        document.getElementById("tableArea").innerHTML = tableHtml;
+
+
+
+    } catch (e) {
+      console.error("Invalid JSON:", e.message);
+    }
+  }
+</script>
+
+</body>
+
+</html>
