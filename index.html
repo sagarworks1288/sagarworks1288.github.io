@@ -1,103 +1,318 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-  <title>Gslug</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+	<meta charset="UTF-8">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+		integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+		crossorigin="anonymous" referrerpolicy="no-referrer">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+		integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		html,
+		body {
+			margin: 0;
+			width: 100%;
+			height: 100%;
+			font-size: 12px;
+			color: black;
+			font-weight: bold;
+			text-decoration-thickness: 5px;
+		}
+
+		body {
+			background: rgba(255, 255, 255, 0.7);
+			/* color: white;
+      font-family: Arial, sans-serif; */
+			overflow: hidden;
+
+			font-size: 10px !important;
+			font-family: Consolas, "Courier New", monospace;
+			font-weight: bold;
+
+		}
+
+		.header {
+			height: 50px;
+			padding: 12px;
+			-webkit-app-region: drag;
+			background: rgba(21, 177, 212, 0.50);
+		}
+
+		.content {
+			width: 100%;
+			height: 100%;
+			overflow-y: auto;
+			overflow-x: hidden;
+			padding: 20px;
+		}
+
+
+		.go-content {
+			white-space: pre-wrap;
+		}
+
+		hr {
+			margin: 0px !important;
+		}
+	</style>
+
+	<!-- React -->
+	<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+
+	<!-- ReactDOM -->
+	<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+	<!-- Babel: allows JSX in the browser -->
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
+
 <body>
 
-<div class="container-fluid">
-
-  <img src="wall1.jpg"  class="img-fluid" />
-  <img src="wall2.jpg"   class="img-fluid"/>
-
-   <a href="wall1.jpg"  >img1</a>
-  <a href="wall2.jpg" >img2</a>
-  <br/>
-   <a href="x1.jpg" >x1</a>
-  <br/>
-   <a href="x2.jpg" >x2</a>
-  <br/>
-   <a href="x3.jpg" >x3</a>
-  <br/>
-   <a href="x4.jpg" >x4</a>
-  <br/>
-   <a href="x5.jpg" >x5</a>
-  <br/>
-   <a href="x6.jpg" >x6</a>
-  <br/>
-   <a href="x7.jpg" >x7</a>
-  <br/>
-   <a href="x1.jpg" >x8</a>
-  
-
-<h1>SLUG MAKER</h1>
-
-<div class="form-group">
-<label>Input</label>
-<textarea id="xInput" rows="4" onchange="processSlug()" onkeyup="processSlug()" class="form-control" ></textarea>
-
-</div>
-
-<div class="form-group">
-<label>Output</label>
-<textarea id="xOutput" rows="4" class="form-control" ></textarea>
-
-</div>
+	<div class="header">
+		Overlay APP
+	</div>
+	<div class="container-fluid">
+		<button class="btn btn-danger" onclick="window.close()">
+			<i class="fa fa-times"></i> Close
+		</button>
+		<button class="btn btn-info" onclick="location.reload()">
+			<i class="fa fa-home"></i> Refresh
+		</button>
+		<!-- <div id="Vfeed">Vfeed</div>
+		<div id="Vconsoler">Vconsoler</div> -->
+	</div>
 
 
-    
-
-  </div>
-
-
-  <a href="/openstreetmap_leaflet_example.html">OSM MAPS</a>
-  <br/>
-    <a href="/location">Location</a>
-  
- <script>
- 
- function processSlug() {
-
-     const name = document.getElementById("xInput").value;
-
-     const result = addAtAfterEveryNChars(name, 3);
-
-     document.getElementById("xOutput").value = result;
-
- }
-
-
- const name = 'alice_more-in.skull in' // Try edit me
-
-
- function addAtAfterEveryNChars(str, n = 3) {
-     str = str
-         .toLowerCase()
-         .replace(/[\s_.]+/g, '-') // Replace spaces, underscores, and dots with hyphen
-         .replace(/[^a-z0-9-]/g, '') // Remove all non-alphanumeric except hyphen
-         .replace(/-+/g, '-') // Collapse multiple hyphens
-         .replace(/^-+|-+$/g, '')
-         .replace(/xxx|exe/g, '');
-     let result = '';
-     for (let i = 0; i < str.length; i++) {
-         result += str[i];
-         if ((i + 1) % n === 0 && i !== str.length - 1) {
-             result += `E${Math.floor(Math.random() * 10)}`;
-//${Math.floor(Math.random() * 10)}Q
-         }
-     }
-     return `sys_${result}.exe`;
- }
- 
- 
- </script>
+	<div class="content">
+		<div id="root"></div>
+	</div>
 
 
 </body>
+
+<script type="text/babel">
+
+	function App() {
+		const [count, setCount] = React.useState(0);
+		const [queryText, setQueryText] = React.useState("");
+		const [fullText, setFullText] = React.useState("");
+		const [mainData, setMainData] = React.useState([]);
+		const [filterData, setFilterData] = React.useState([]);
+		const [ct, setCt] = React.useState([]);
+		const [displayData, setDisplayData] = React.useState([]);
+		const [voiceDetection, setVoiceDetection] = React.useState(true);
+		const [filterCt, setFilterCt] = React.useState([]);
+
+		const handleFilterByCategory = (category) => {
+			const prev = _.filter(mainData, (row) => _.get(row, 'ct', '') === category)
+			setFilterData(prev)
+			setDisplayData(prev)
+		}
+
+
+		async function fetchOriginalData() {
+			try {
+				const response = await fetch(
+					'https://sagarworks1288.github.io/data.json'
+				);
+				const mainData = await response.json();
+				const cats = _.filter(_.uniq(_.map(mainData, (r) => _.get(r, 'ct', ''))), (w) => w !== "")
+				setMainData(mainData)
+				setDisplayData(mainData)
+				setCt(cats)
+
+			} catch (error) {
+				setMainData([])
+				setCt([])
+				console.error('Fetch error:', error);
+			}
+		}
+
+		const speak = () => {
+			const utterance = new SpeechSynthesisUtterance(queryText);
+			window.speechSynthesis.speak(utterance);
+		}
+
+
+
+		const matchMakerOld = (data1 = [], data2 = []) => {
+			const matches = data1.filter(keyword => data2.includes(keyword));
+			const percentage = (matches.length / data1.length) * 100;
+			return { matches, percentage }
+		}
+
+		const matchMaker = (data1 = [], data2 = []) => {
+			const matches = data1.filter(keyword =>
+				data2.some(item => new RegExp(keyword, "i").test(item))
+			);
+
+			const percentage = data1.length
+				? (matches.length / data1.length) * 100
+				: 0;
+
+			return { matches, percentage };
+		};
+
+		const handleChangeSubFilter = (type) => {
+			if (type === "all") {
+				setDisplayData(filterData)
+			} else {
+				setDisplayData(_.filter(filterData, (row) => _.get(row, 'ct', '') === type))
+			}
+		}
+
+		const processData = () => {
+			try {
+				const speech = `${queryText}`.replace(/[^a-zA-Z0-9\s]/g, "").toLowerCase();
+				let embd = speech.split(" ")
+				embd = _.filter(embd, (text) => text !== '' && _.size(text) > 2)
+				const contentResults = []
+				if (_.size(embd) > 0) {
+					_.map(mainData, (row) => {
+						const { matches, percentage } = matchMaker(embd, _.get(row, 'keywords', []))
+						if (percentage > 0) {
+							contentResults.push({ ...row, matches, percentage })
+						}
+					})
+				}
+
+				if (_.size(contentResults) > 0) {
+					const sortedResult = _.orderBy(contentResults, ["percentage"], ["desc"]);
+					console.log("@@@sortedResult", sortedResult)
+					setFilterData(sortedResult)
+					setDisplayData(sortedResult)
+
+				} else {
+					console.log("No Found")
+				}
+
+
+			} catch (error) {
+
+
+			}
+
+		}
+
+		const SubfilterCtx = (props) => {
+			const data = props.data
+			let ctx = []
+			if (_.size(data)) {
+				ctx = _.map(data, (r) => _.get(r, 'ct', ''));
+				ctx = _.uniq(ctx)
+				ctx = _.filter(ctx, (r) => r != '')
+
+				if (_.size(ctx) > 1) {
+					ctx.unshift('all')
+				}
+			}
+			return (<div style={{ marginTop: 5 }} className="d-flex gap-1">{_.map(ctx, (ct) => <button key={ct} onClick={() => handleChangeSubFilter(ct)} className="btn btn-danger" >{ct}</button>)}</div>)
+
+		}
+
+		const voiceDetectionRef = React.useRef(voiceDetection);
+
+		React.useEffect(() => {
+			voiceDetectionRef.current = voiceDetection;
+		}, [voiceDetection]);
+
+
+		const handleVoiceUpdates = (speechObj) => {
+			if (voiceDetectionRef.current === true) {
+				setQueryText(_.get(speechObj, "text", ""));
+			}
+			setFullText((prev)=> `${prev} ${_.get(speechObj, "text", "")}` )
+			console.log("voiceDetection:", voiceDetectionRef.current);
+		};
+
+		React.useEffect(() => {
+
+			const websocketUrl = `ws://localhost:8765` //"ws://192.168.206.130:8765"
+
+			const socket = new WebSocket(websocketUrl);
+
+			socket.onmessage = (event) => {
+				try {
+					const speechObj = JSON.parse(event.data)
+					handleVoiceUpdates(speechObj)
+				} catch (error) {
+					setQueryText("")
+					console.error(error);
+				}
+			};
+
+			socket.onopen = () => {
+				console.log("Connected");
+			};
+
+			socket.onclose = () => {
+				console.log("Disconnected");
+			};
+
+			fetchOriginalData();
+
+			// Cleanup when React component is removed
+			return () => {
+				socket.close();
+			};
+
+		}, []);
+
+		React.useEffect(() => {
+			processData()
+			// return () => {};
+		}, [queryText]);
+
+		return (
+			<div>
+
+				<div className="d-flex gap-1" >
+					<button className={`btn ${voiceDetection === true ? 'btn-success' : 'btn-danger'}`} onClick={() => setVoiceDetection(prev => prev === true ? false : true)} >Voice Detection {voiceDetection === true ? 'On' : 'Off'}</button>
+					{_.map(ct, (cat) => <button key={cat} type="button" onClick={() => handleFilterByCategory(cat)} className="btn btn-dark">{cat}</button>)}
+				</div>
+				{fullText}
+
+
+				<div className="form-group" style={{ marginTop: 5 }} >
+					<input type="text" className="form-control" onChange={(event) => setQueryText(event.target.value)} value={queryText} placeholder="Search" />
+				</div>
+
+				<div className="d-flex gap-1">
+					Total : {_.size(displayData)}
+					<SubfilterCtx data={filterData} />
+				</div>
+
+
+
+				{_.map(displayData, (row) =>
+					<div key={_.get(row, "_id.$oid", "")} >
+						<span className="badge bg-primary">{_.get(row, "ct", "")}</span>
+						<span className="badge bg-info">{_.get(row, "percentage", "")}</span>
+
+						<div className="go-content">{_.get(row, "content", "")}</div>
+						<hr />
+
+					</div>
+				)}
+
+
+			</div>
+		);
+	}
+
+	const root = ReactDOM.createRoot(
+		document.getElementById("root")
+	);
+
+	root.render(<App />);
+
+</script>
+
 </html>
